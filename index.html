@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./card.css" />
+    <link rel="stylesheet" href="./button.css" />
+    <link rel="stylesheet" href="./heart.css" />
+    <link
+      href="http://fonts.googleapis.com/css?family=Great+Vibes"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <a href="#" onclick="startScript()">
+        <span>Hey honey !</span>
+        <span>Click here !</span>
+      </a>
+    </div>
+    <div class="heart-container"></div>
+    <div class="card">
+      <div class="imgBox">
+        <img src="./img/nhi1.jpg" alt="" />
+        <!-- <img src="./img/nhi2.JPEG" alt="" /> -->
+      </div>
+      <div class="details">
+        <div class="content">
+          <h2>Chào <span>em yêuuuu</span></h2>
+          <br />
+          <p>Chúc em 20-10 vui vẻ, hạnh phúc, mãi mãi xinh đẹp !</p>
+          <br />
+          <h2 style="text-align: right !important">Yêu em nhất</h2>
+          <p style="text-align: right">VQ</p>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"
+      integrity="sha512-aNMyYYxdIxIaot0Y1/PLuEu3eipGCmsEUBrUq+7aVyPGMFH8z0eTP0tkqAvv34fzN6z+201d3T8HPb1svWSKHQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      function startScript() {
+        let container = document.querySelector(".container");
+        anime({
+          targets: ".container",
+          opacity: 0,
+          duration: 1000,
+          complete: function () {
+            container.style.display = "none";
+            showHeartAndCard();
+          },
+        });
+        function showHeartAndCard() {
+          animateHearts();
+          let hearts = document.querySelectorAll(".heart");
+          hearts.forEach(function (heart) {
+            heart.classList.add("heart-shadow");
+            heart.classList.add("heart-right-shadow");
+            heart.classList.add("heart-left-shadow");
+          });
+          let container = document.querySelector(".heart-container");
+          anime({
+            targets: ".heart-container",
+            opacity: 1,
+            duration: 500,
+            complete: function () {
+              container.style.background = "#e80202";
+              let card = document.querySelector(".card");
+              card.style.display = "flex";
+              anime({
+                targets: ".card",
+                opacity: 1,
+                duration: 500,
+                complete: function () {
+                  setTimeout(function () {
+                    card.classList.add("card-active-hover");
+                  }, 2500);
+                },
+              });
+            },
+          });
+        }
+      }
+    </script>
+    <script>
+      const container = document.querySelector(".heart-container");
+      for (var i = 1; i < 100; i++) {
+        const hearts = document.createElement("div");
+        hearts.classList.add("heart");
+        container.appendChild(hearts);
+      }
+      function animateHearts() {
+        anime({
+          targets: ".heart",
+          translateX: function () {
+            return anime.random(-1000, 1000);
+          },
+          translateY: function () {
+            return anime.random(-700, 700);
+          },
+          rotate: 45,
+          scale: function () {
+            return anime.random(1, 8);
+          },
+          easing: "easeInOutBack",
+          duration: 3000,
+          delay: anime.stagger(10),
+          complete: animateHearts,
+        });
+      }
+    </script>
+  </body>
+</html>
